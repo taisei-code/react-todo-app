@@ -28,6 +28,16 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   }
 
+  // 完了ボタンをクリックしたときの関数
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  }
+
 
   return (
     <>
@@ -43,7 +53,7 @@ export const App = () => {
             return (
               <li key={todo} className="list-row">
                 <p>{todo}</p>
-                <button>完了</button>
+                <button onClick={ () => onClickComplete(index)}>完了</button>
                 <button onClick={ () => onClickDelete(index)}>削除</button>
               </li>
             );
