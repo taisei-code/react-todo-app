@@ -6,9 +6,9 @@ export const App = () => {
   // 入力された値のstate
   const [todoText, setTodoText] = useState('');
   // 未完了のTODOを管理する配列（state化）
-  const [incompleteTodos, setIncompleteTodos] = useState(['肩トレ', '胸肉仕込み']);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
   // 完了のTODOを管理する配列（state化）
-  const [completeTodos, setCompleteTodos] = useState(['React勉強'])
+  const [completeTodos, setCompleteTodos] = useState([])
   
   const onChangeTodotext = (event) => setTodoText(event.target.value)
 
@@ -38,6 +38,16 @@ export const App = () => {
     setCompleteTodos(newCompleteTodos);
   }
 
+  // 戻るボタンをクリックしたときの関数
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+    setCompleteTodos(newCompleteTodos);
+    setIncompleteTodos(newIncompleteTodos);
+  }
+
 
   return (
     <>
@@ -64,11 +74,11 @@ export const App = () => {
       <div className="complete-area">
         <p className="title"> 完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => {
+          {completeTodos.map((todo, index) => {
             return (
               <li key={todo} className="list-row">
                   <p>{todo}</p>
-                  <button>戻す</button>   
+                  <button onClick={ () => onClickBack(index)}>戻す</button>   
               </li>
             );
           })}
