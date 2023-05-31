@@ -3,6 +3,7 @@ import "./style.css";
 import { useState } from "react"; 
 import { InputTodo } from "./components/InputTodo";
 import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const App = () => {
   // 入力された値のstate
@@ -53,29 +54,28 @@ export const App = () => {
 
   return (
     <>
-    
       <InputTodo 
         todoText={todoText} 
         onChange={onChangeTodotext} 
         onClick={onClickAdd} 
       />
 
-      <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
+      <IncompleteTodos 
+        todos={incompleteTodos} 
+        onClickComplete={onClickComplete} 
+        onClickDelete={onClickDelete} 
+      />
 
-      <div className="complete-area">
-        <p className="title"> 完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => {
-            return (
-              <li key={todo} className="list-row">
-                  <p>{todo}</p>
-                  <button onClick={ () => onClickBack(index)}>戻す</button>   
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
+      <CompleteTodos 
+        todos={completeTodos} 
+        onClickBack={onClickBack}
+      />
     </>
   );
 }
+
+/* 
+  コンポーネント化するメリット
+  - コードの見通しが良くなる
+  - 一部分を他の画面で利用したいときにコンポーネント化しておけば、シンプルに書ける
+*/
