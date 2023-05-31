@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
 import { useState } from "react"; 
-import { InputTodo } from "./components/inputTodo";
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
 
 export const App = () => {
   // 入力された値のstate
@@ -52,25 +53,14 @@ export const App = () => {
 
   return (
     <>
+    
       <InputTodo 
         todoText={todoText} 
         onChange={onChangeTodotext} 
         onClick={onClickAdd} 
       />
-      <div className="incomplete-area">
-        <p className="title"> 未完了のTODO</p>
-        <ul>
-          {incompleteTodos.map((todo, index) => {
-            return (
-              <li key={todo} className="list-row">
-                <p>{todo}</p>
-                <button onClick={ () => onClickComplete(index)}>完了</button>
-                <button onClick={ () => onClickDelete(index)}>削除</button>
-              </li>
-            );
-           })}
-        </ul>
-      </div>
+
+      <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
 
       <div className="complete-area">
         <p className="title"> 完了のTODO</p>
